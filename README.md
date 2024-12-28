@@ -106,14 +106,17 @@ In addition to the running parameters, the main inputs consist of a graph that i
 |...|...|...|
 
 * The edge file specifies the edges (with respect to the vertex IDs) and their attributes, where edge length is given in meters, capacity specifies the number of passing vehicles in an hour, and speed denotes the free-flow speed (km/h).  E.g.,
+**Important**: The `edge_tail` values in the edge file must be in ascending order. This is required by the underlying `lemon::StaticDigraph::build()` function used in the implementation. For example:
 
 |edge_tail|edge_head|length|capacity|speed|
 |---------|---------|------|--------|-----|
-|3|0|172|14783|56|
-|2|1|9|14783|56|
-|8|1|121|5279|40|
 |0|2|51|10559|40|
+|2|1|9|14783|56|
+|3|0|172|14783|56|
+|8|1|121|5279|40|
 |...|...|...|...|...|
+
+    If the `edge_tail` values are not sorted, the program will throw an assertion error during graph construction.
 
 * The od-pairs file specifies origin and destination vertices for a given demand, and the volume (number of vehicles or people). E.g.,
 
