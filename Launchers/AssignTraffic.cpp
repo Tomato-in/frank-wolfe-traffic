@@ -44,8 +44,8 @@ void printUsage() {
 		"  -n <num>				number of iterations (default = 100)\n"
 		"  -ce_param <num>		combined_eq interpolation parameter in [0,1]:\n"
 		"						0 for UE, 1 for SO\n"
-		"  -const_param <num>	distance multiplier for constrained search"
-		"  -elastic				flag for elastic demand with rebalancing"
+		"  -const_param <num>	distance multiplier for constrained search\n"
+		"  -elastic				flag for elastic demand with rebalancing\n"
 		"  -i <path>			input graph edge CSV file\n"
 		"  -od <file>			OD-pair file\n"
 		"  -o <path>			output path\n"
@@ -87,7 +87,7 @@ void assignTraffic(const CommandLineParser& clp) {
 	
 	std::vector<ClusteredOriginDestination> odPairs = importClusteredODPairsFrom(odFilename);
 
-	const int numIterations = clp.getValue<int>("n");
+	const int numIterations = clp.getValue<int>("n", 100);
 	if (numIterations < 0) {
 		const std::string msg("negative number of iterations");
 		throw std::invalid_argument(msg + " -- " + std::to_string(numIterations));
